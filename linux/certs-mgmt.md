@@ -2,15 +2,15 @@
 
 ### Show expiration and issuer information about the server SSL certificate
 
-```
+```shell
 echo | openssl s_client -servername yourdomain.com -connect yourdomain.com:443 2>/dev/null | openssl x509 -noout -issuer -subject -dates
 ```
 ### Generate Private key and CSR with one command
-```
+```shell
 openssl req -out yourdomain.com.csr -new -newkey rsa:4096 -nodes -keyout yourdomain.com.key -subj "/C=US/ST=NY/L=New York/O=Your Company, Inc./OU=IT/CN=yourdomain.com"
 ```
 ### Generate Private key and CSR with SAN (Subject Alternative Names)
-```
+```shell
 openssl req -new -sha512 -nodes -out yourdomain.com.csr -newkey rsa:4096 -keyout yourdomain.com.key -config <(
 cat <<-EOF
 [req]
@@ -41,28 +41,28 @@ EOF
 )
 ```
 ### Generate a Self-Signed Certificate from CSR
-```
+```shell
 openssl x509 -req -days 365 -in yourdomain.com.csr -signkey yourdomain.com.key -out yourdomain.com.crt
 ```
 ### Verify Certificate
-```
+```shell
 openssl x509 -text -noout -in yourdomain.com.crt
 ```
 ## Creating Elliptic Curve Keys using OpenSSL
 
 ### Generate a Private key for a curve
-```
+```shell
 openssl ecparam -name prime256v1 -genkey -noout -out private.pem
 ```
 ### Generate corresponding Public key
-```
+```shell
 openssl ec -in private.pem -pubout -out public.pem
 ```
 ### Create a Self-Signed Certificate
-```
+```shell
 openssl req -new -x509 -key private.pem -out cert.pem -days 365
 ```
 ### Convert .pem to .pfx
-```
+```shell
 openssl pkcs12 -export -inkey private.pem -in cert.pem -out cert.pfx
 ```
