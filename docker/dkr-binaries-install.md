@@ -1,5 +1,5 @@
 # Install Docker binaries into container
-Place into your DOckerfile if you need to run docker commands inside your container
+Place into your Dockerfile if you need to run docker commands inside your container
 ```docker
 ENV DOCKERVERSION=20.0.6
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
